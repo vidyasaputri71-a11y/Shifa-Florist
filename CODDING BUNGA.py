@@ -178,8 +178,7 @@ if menu == "Kasir":
             st.success("Pembayaran Berhasil")
 
             st.write(f"Kembalian : Rp {kembalian:,}")
-
-                      # =====================================
+            # =====================================
             # QRIS PEMBAYARAN
             # =====================================
 
@@ -233,7 +232,6 @@ Terima Kasih
 '''
 
             st.text(struk)
-
             # =====================================
             # SIMPAN TRANSAKSI
             # =====================================
