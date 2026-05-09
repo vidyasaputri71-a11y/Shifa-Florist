@@ -179,10 +179,11 @@ if menu == "Kasir":
 
             st.write(f"Kembalian : Rp {kembalian:,}")
 
-            # =====================================
-            # QR CODE
-            # =====================================
-           st.subheader("📱 QRIS Pembayaran")
+           # =====================================
+# QRIS PEMBAYARAN
+# =====================================
+
+st.subheader("📱 QRIS Pembayaran")
 
 qris_text = f"""
 SHIFA FLORIST
