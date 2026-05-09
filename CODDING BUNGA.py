@@ -352,10 +352,15 @@ elif menu == "Keuangan":
 
         st.dataframe(filtered, use_container_width=True)
         st.subheader("📈 Grafik Penjualan")
+                st.dataframe(filtered, use_container_width=True)
 
-grafik = filtered.groupby("Produk")["Subtotal"].sum()
+        st.subheader("📈 Grafik Penjualan")
 
-st.bar_chart(grafik)
+        grafik = filtered.groupby("Produk")["Subtotal"].sum()
+
+        st.bar_chart(grafik)
 
     else:
         st.warning("Belum ada transaksi")
+
+
