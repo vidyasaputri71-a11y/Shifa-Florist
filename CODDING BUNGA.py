@@ -119,9 +119,11 @@ if menu == "Kasir":
     st.divider()
     st.header("📚 Katalog Bunga")
 
-    for flower in flowers:
-      with st.container():
-            col1, col2 = st.columns([1, 2])
+   for flower in flowers:
+
+    with st.container():
+
+        col1, col2 = st.columns([1, 2])
 
         with col1:
             st.image(
@@ -136,7 +138,6 @@ if menu == "Kasir":
 
             if flower["stok"] > 10:
                 st.success("Tersedia")
-
             else:
                 st.warning("Stok Terbatas")
 
@@ -427,30 +428,26 @@ Terima Kasih
     # form review
     nama_review = st.text_input("Nama Anda")
 
-       rating = st.slider(
-        "Rating",
-        min_value=1,
-        max_value=5,
-        value=5
-    )
+rating = st.slider(
+    "Rating",
+    min_value=1,
+    max_value=5,
+    value=5
+)
 
     komentar = st.text_area("Komentar Review")
 
     if st.button("Kirim Review"):
 
-        st.session_state.reviews.append({
-            "nama": nama_review,
-            "rating": rating,
-            "komentar": komentar
-        })
+    st.session_state.reviews.append({
+        "nama": nama_review,
+        "rating": rating,
+        "komentar": komentar
+    })
 
     st.success("Review berhasil ditambahkan")
 
     # tampilkan review
-    for review in st.session_state.reviews:
-
-        st.markdown("---")
-
     for review in st.session_state.reviews:
 
         st.markdown("---")
