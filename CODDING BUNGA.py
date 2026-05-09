@@ -118,7 +118,7 @@ if menu == "Kasir":
 
     for i, flower in enumerate(flowers):
 
-        with cols[i]:
+        with cols[i % 4]:
 
             st.image(flower["gambar"], use_container_width=True)
 
