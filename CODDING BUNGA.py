@@ -113,14 +113,13 @@ if menu == "Kasir":
 """)
 
     st.subheader("Daftar Bunga")
-# =====================================
-# KATALOG BUNGA
-# =====================================
+    # =====================================
+    # KATALOG BUNGA
 
-st.divider()
-st.header("📚 Katalog Bunga")
+    st.divider()
+    st.header("📚 Katalog Bunga")
 
-for flower in flowers:
+    for flower in flowers:
 
     with st.container():
 
@@ -241,6 +240,9 @@ for flower in flowers:
         no_hp = st.text_input("Nomor HP Penerima")
 
         pengiriman = st.selectbox(
+    "Metode Pengiriman",
+    ["Ambil di Toko", "Kurir Toko", "GoSend", "GrabExpress"]
+)
 # =====================================
 # REQUEST CUSTOMER
 # =====================================
@@ -358,6 +360,7 @@ Tambahan :
 {permintaan_tambahan}
 
 Terima Kasih
+'''
 
             st.text(struk)
             # =====================================
@@ -404,11 +407,11 @@ Terima Kasih
     # REVIEW PELANGGAN
     # =====================================
 
-st.divider()
-st.header("⭐ Review Pelanggan")
+    st.divider()
+    st.header("⭐ Review Pelanggan")
 
-# session review
-if "reviews" not in st.session_state:
+    # session review
+    if "reviews" not in st.session_state:
 
     st.session_state.reviews = [
         {
@@ -424,19 +427,19 @@ if "reviews" not in st.session_state:
         }
     ]
 
-# form review
-nama_review = st.text_input("Nama Anda")
+    # form review
+    nama_review = st.text_input("Nama Anda")
 
-rating = st.slider(
+    rating = st.slider(
     "Rating",
     min_value=1,
     max_value=5,
     value=5
 )
 
-komentar = st.text_area("Komentar Review")
+    komentar = st.text_area("Komentar Review")
 
-if st.button("Kirim Review"):
+    if st.button("Kirim Review"):
 
     st.session_state.reviews.append({
         "nama": nama_review,
@@ -446,8 +449,8 @@ if st.button("Kirim Review"):
 
     st.success("Review berhasil ditambahkan")
 
-# tampilkan review
-for review in st.session_state.reviews:
+    # tampilkan review
+    for review in st.session_state.reviews:
 
     st.markdown("---")
 
