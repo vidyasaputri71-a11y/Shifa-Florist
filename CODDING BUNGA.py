@@ -179,31 +179,30 @@ if menu == "Kasir":
 
             st.write(f"Kembalian : Rp {kembalian:,}")
 
-           # =====================================
-# QRIS PEMBAYARAN
-# =====================================
+                      # =====================================
+            # QRIS PEMBAYARAN
+            # =====================================
 
-st.subheader("📱 QRIS Pembayaran")
+            st.subheader("📱 QRIS Pembayaran")
 
-qris_text = f"""
-SHIFA FLORIST
-Total Bayar Rp {total}
-"""
+            qris_text = f"""
+            SHIFA FLORIST
+            Total Bayar Rp {total}
+            """
 
-qr = qrcode.make(qris_text)
+            qr = qrcode.make(qris_text)
 
-qr.save("qris.png")
+            qr.save("qris.png")
 
-st.image("qris.png", width=250)
- 
+            st.image("qris.png", width=250)
 
-          # =====================================
-# CETAK STRUK
-# =====================================
+            # =====================================
+            # CETAK STRUK
+            # =====================================
 
-st.subheader("🧾 Struk Pembelian")
+            st.subheader("🧾 Struk Pembelian")
 
-struk = f'''
+            struk = f'''
 =========================
      FLORIST SHOP
 =========================
