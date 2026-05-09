@@ -197,19 +197,19 @@ qr.save("qris.png")
 st.image("qris.png", width=250)
  
 
-            # =====================================
-            # CETAK STRUK
-            # =====================================
-            st.subheader("🧾 Struk Pembelian")
+          # =====================================
+# CETAK STRUK
+# =====================================
 
-            struk = f'''
+st.subheader("🧾 Struk Pembelian")
+
+struk = f'''
 =========================
-      FLORIST SHOP
+     FLORIST SHOP
 =========================
 
 Tanggal :
 {datetime.now().strftime("%d-%m-%Y %H:%M")}
-
 '''
 
             for item in st.session_state.cart:
