@@ -195,7 +195,7 @@ qr = qrcode.make(qris_text)
 qr.save("qris.png")
 
 st.image("qris.png", width=250)
-
+ 
 
             # =====================================
             # CETAK STRUK
