@@ -194,7 +194,7 @@ if menu == "Kasir":
         # =====================================
         # CATATAN
         # =====================================
-               catatan = st.text_area("Catatan Pembelian")
+        catatan = st.text_area("Catatan Pembelian")
 
         # =====================================
         # PENGIRIMAN
