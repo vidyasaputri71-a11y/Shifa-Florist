@@ -113,6 +113,37 @@ if menu == "Kasir":
 """)
 
     st.subheader("Daftar Bunga")
+# =====================================
+# KATALOG BUNGA
+# =====================================
+
+st.divider()
+st.header("📚 Katalog Bunga")
+
+for flower in flowers:
+
+    with st.container():
+
+        col1, col2 = st.columns([1, 2])
+
+        with col1:
+            st.image(
+                flower["gambar"],
+                use_container_width=True
+            )
+
+        with col2:
+            st.subheader(flower["nama"])
+            st.write(f"💰 Harga : Rp {flower['harga']:,}")
+            st.write(f"📦 Stok : {flower['stok']}")
+
+            if flower["stok"] > 10:
+                st.success("Tersedia")
+
+            else:
+                st.warning("Stok Terbatas")
+
+        st.divider()
 
     cols = st.columns(4)
 
@@ -213,6 +244,36 @@ if menu == "Kasir":
             "Metode Pengiriman",
             ["Ambil di Toko", "Kurir Toko", "GoSend", "GrabExpress"]
         )
+# =====================================
+# REQUEST CUSTOMER
+# =====================================
+
+st.subheader("🎀 Request Customer")
+
+request_bunga = st.multiselect(
+    "Bunga ingin diapakan?",
+    [
+        "Dibuat bouquet aesthetic",
+        "Tambah pita",
+        "Tambah lampu LED",
+        "Packing premium",
+        "Tambah boneka",
+        "Warna dominan pink",
+        "Warna dominan putih",
+        "Buket wisuda",
+        "Buket ulang tahun",
+        "Buket anniversary"
+    ]
+)
+
+kartu_ucapan = st.text_area(
+    "Isi Kartu Ucapan",
+    placeholder="Contoh : Happy Birthday semoga sehat selalu 🌸"
+)
+
+permintaan_tambahan = st.text_area(
+    "Permintaan Tambahan"
+)
         # =====================================
         # PEMBAYARAN
         # =====================================
@@ -290,8 +351,16 @@ No HP :
 Pengiriman :
 {pengiriman}
 
+Request :
+{", ".join(request_bunga)}
+
+Kartu Ucapan :
+{kartu_ucapan}
+
+Tambahan :
+{permintaan_tambahan}
+
 Terima Kasih
-'''
 
             st.text(struk)
             # =====================================
@@ -334,7 +403,62 @@ Terima Kasih
 
     else:
         st.info("Keranjang kosong")
+# =====================================
+# REVIEW PELANGGAN
+# =====================================
 
+st.divider()
+st.header("⭐ Review Pelanggan")
+
+# session review
+if "reviews" not in st.session_state:
+
+    st.session_state.reviews = [
+        {
+            "nama": "Alya",
+            "rating": 5,
+            "komentar": "Bunganya cantik dan segar 🌸"
+        },
+
+        {
+            "nama": "Rina",
+            "rating": 4,
+            "komentar": "Pengiriman cepat dan admin ramah"
+        }
+    ]
+
+# form review
+nama_review = st.text_input("Nama Anda")
+
+rating = st.slider(
+    "Rating",
+    min_value=1,
+    max_value=5,
+    value=5
+)
+
+komentar = st.text_area("Komentar Review")
+
+if st.button("Kirim Review"):
+
+    st.session_state.reviews.append({
+        "nama": nama_review,
+        "rating": rating,
+        "komentar": komentar
+    })
+
+    st.success("Review berhasil ditambahkan")
+
+# tampilkan review
+for review in st.session_state.reviews:
+
+    st.markdown("---")
+
+    st.subheader(f"👤 {review['nama']}")
+
+    st.write("⭐" * review["rating"])
+
+    st.write(review["komentar"])
 # =====================================
 # HALAMAN KEUANGAN
 # =====================================
