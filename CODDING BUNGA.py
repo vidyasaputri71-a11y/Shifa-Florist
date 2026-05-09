@@ -60,6 +60,34 @@ flowers = [
         "harga": 100000,
         "stok": 15,
         "gambar": "https://images.unsplash.com/photo-1490750967868-88aa4486c946"
+    },
+
+    {
+        "nama": "Tulip",
+        "harga": 50000,
+        "stok": 30,
+        "gambar": "https://images.unsplash.com/photo-1520763185298-1b434c919102"
+    },
+
+    {
+        "nama": "Sunflower",
+        "harga": 30000,
+        "stok": 12,
+        "gambar": "https://images.unsplash.com/photo-1470509037663-253afd7f0f51"
+    },
+
+    {
+        "nama": "Baby Breath",
+        "harga": 40000,
+        "stok": 18,
+        "gambar": "https://images.unsplash.com/photo-1468327768560-75b778cbb551"
+    },
+
+    {
+        "nama": "Anggrek",
+        "harga": 75000,
+        "stok": 8,
+        "gambar": "https://images.unsplash.com/photo-1501004318641-b39e6451bec6"
     }
 ]
 
@@ -77,6 +105,11 @@ menu = st.sidebar.radio(
 if menu == "Kasir":
 
     st.title("🌸 SHIFA FLORIST")
+    st.info("""
+📞 WhatsApp : 08123456789
+📸 Instagram : @shifaflorist
+🎵 TikTok : @shifaflorist
+""")
 
     st.subheader("Daftar Bunga")
 
@@ -162,7 +195,18 @@ if menu == "Kasir":
         # CATATAN
         # =====================================
         catatan = st.text_area("Catatan Pembelian")
+        st.subheader("🚚 Pengiriman")
 
+nama_penerima = st.text_input("Nama Penerima")
+
+alamat = st.text_area("Alamat Pengiriman")
+
+no_hp = st.text_input("Nomor HP Penerima")
+
+pengiriman = st.selectbox(
+    "Metode Pengiriman",
+    ["Ambil di Toko", "Kurir Toko", "GoSend", "GrabExpress"]
+)
         # =====================================
         # PEMBAYARAN
         # =====================================
@@ -227,6 +271,18 @@ KEMBALI : Rp {kembalian:,}
 
 Catatan :
 {catatan}
+
+Penerima :
+{nama_penerima}
+
+Alamat :
+{alamat}
+
+No HP :
+{no_hp}
+
+Pengiriman :
+{pengiriman}
 
 Terima Kasih
 '''
