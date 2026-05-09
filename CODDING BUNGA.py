@@ -76,7 +76,7 @@ menu = st.sidebar.radio(
 # =====================================
 if menu == "Kasir":
 
-    st.title("🌸 FLORIST CASHIER APP")
+    st.title("🌸 SHIFA FLORIST")
 
     st.subheader("Daftar Bunga")
 
