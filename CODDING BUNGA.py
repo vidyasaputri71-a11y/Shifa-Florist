@@ -121,8 +121,7 @@ if menu == "Kasir":
 
     for flower in flowers:
 
-    with st.container():
-
+        with st.container():
         col1, col2 = st.columns([1, 2])
 
         with col1:
@@ -240,9 +239,9 @@ if menu == "Kasir":
         no_hp = st.text_input("Nomor HP Penerima")
 
         pengiriman = st.selectbox(
-    "Metode Pengiriman",
-    ["Ambil di Toko", "Kurir Toko", "GoSend", "GrabExpress"]
-)
+            "Metode Pengiriman",
+            ["Ambil di Toko", "Kurir Toko", "GoSend", "GrabExpress"]
+        )
 # =====================================
 # REQUEST CUSTOMER
 # =====================================
@@ -413,7 +412,7 @@ Terima Kasih
     # session review
     if "reviews" not in st.session_state:
 
-    st.session_state.reviews = [
+        st.session_state.reviews = [
         {
             "nama": "Alya",
             "rating": 5,
@@ -441,7 +440,7 @@ Terima Kasih
 
     if st.button("Kirim Review"):
 
-    st.session_state.reviews.append({
+        st.session_state.reviews.append({
         "nama": nama_review,
         "rating": rating,
         "komentar": komentar
@@ -452,7 +451,7 @@ Terima Kasih
     # tampilkan review
     for review in st.session_state.reviews:
 
-    st.markdown("---")
+        st.markdown("---")
 
     st.subheader(f"👤 {review['nama']}")
 
