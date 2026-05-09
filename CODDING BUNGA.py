@@ -119,31 +119,29 @@ if menu == "Kasir":
     st.divider()
     st.header("📚 Katalog Bunga")
 
-       for flower in flowers:
+for flower in flowers:
 
-        for flower in flowers:
+    with st.container():
 
-        with st.container():
+        col1, col2 = st.columns([1, 2])
 
-            col1, col2 = st.columns([1, 2])
+        with col1:
+            st.image(
+                flower["gambar"],
+                use_container_width=True
+            )
 
-            with col1:
-                st.image(
-                    flower["gambar"],
-                    use_container_width=True
-                )
+        with col2:
+            st.subheader(flower["nama"])
+            st.write(f"💰 Harga : Rp {flower['harga']:,}")
+            st.write(f"📦 Stok : {flower['stok']}")
 
-            with col2:
-                st.subheader(flower["nama"])
-                st.write(f"💰 Harga : Rp {flower['harga']:,}")
-                st.write(f"📦 Stok : {flower['stok']}")
+            if flower["stok"] > 10:
+                st.success("Tersedia")
+            else:
+                st.warning("Stok Terbatas")
 
-                if flower["stok"] > 10:
-                    st.success("Tersedia")
-                else:
-                    st.warning("Stok Terbatas")
-
-            st.divider()
+        st.divider()
 
     cols = st.columns(4)
 
@@ -439,15 +437,14 @@ Terima Kasih
 
         komentar = st.text_area("Komentar Review")
 
-       if st.button("Kirim Review"):
+if st.button("Kirim Review"):
 
-        st.session_state.reviews.append({
-            "nama": nama_review,
-            "rating": rating,
-            "komentar": komentar
-        })
+    st.session_state.reviews.append({
+        "nama": nama_review,
+        "rating": rating,
+        "komentar": komentar
+    })
 
-        st.success("Review berhasil ditambahkan")
     st.success("Review berhasil ditambahkan")
 
     # tampilkan review
