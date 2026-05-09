@@ -194,19 +194,24 @@ if menu == "Kasir":
         # =====================================
         # CATATAN
         # =====================================
-        catatan = st.text_area("Catatan Pembelian")
+               catatan = st.text_area("Catatan Pembelian")
+
+        # =====================================
+        # PENGIRIMAN
+        # =====================================
+
         st.subheader("🚚 Pengiriman")
 
-nama_penerima = st.text_input("Nama Penerima")
+        nama_penerima = st.text_input("Nama Penerima")
 
-alamat = st.text_area("Alamat Pengiriman")
+        alamat = st.text_area("Alamat Pengiriman")
 
-no_hp = st.text_input("Nomor HP Penerima")
+        no_hp = st.text_input("Nomor HP Penerima")
 
-pengiriman = st.selectbox(
-    "Metode Pengiriman",
-    ["Ambil di Toko", "Kurir Toko", "GoSend", "GrabExpress"]
-)
+        pengiriman = st.selectbox(
+            "Metode Pengiriman",
+            ["Ambil di Toko", "Kurir Toko", "GoSend", "GrabExpress"]
+        )
         # =====================================
         # PEMBAYARAN
         # =====================================
