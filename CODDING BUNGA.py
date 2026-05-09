@@ -1,11 +1,12 @@
 import streamlit as st
-# LOGIN ADMIN
-username = st.sidebar.text_input("Username")
-password = st.sidebar.text_input("Password", type="password")
+# LOGIN ADMIN KHUSUS KEUANGAN
+admin_login = False
 
-if username != "admin" or password != "123":
-    st.warning("Login dulu")
-    st.stop()
+username = st.sidebar.text_input("Admin Username")
+password = st.sidebar.text_input("Admin Password", type="password")
+
+if username == "admin" and password == "123":
+    admin_login = True
 import pandas as pd
 from datetime import datetime, timedelta
 import os
@@ -338,6 +339,10 @@ Terima Kasih
 # HALAMAN KEUANGAN
 # =====================================
 elif menu == "Keuangan":
+
+    if not admin_login:
+        st.warning("Menu keuangan khusus admin")
+        st.stop()
 
     st.title("📊 KEUANGAN")
     st.subheader("Dashboard Keuangan")
