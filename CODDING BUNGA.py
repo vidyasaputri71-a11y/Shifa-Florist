@@ -1,4 +1,11 @@
 import streamlit as st
+# LOGIN ADMIN
+username = st.sidebar.text_input("Username")
+password = st.sidebar.text_input("Password", type="password")
+
+if username != "admin" or password != "123":
+    st.warning("Login dulu")
+    st.stop()
 import pandas as pd
 from datetime import datetime, timedelta
 import os
@@ -44,22 +51,15 @@ flowers = [
     {
         "nama": "Mawar",
         "harga": 10000,
+        "stok": 20,
         "gambar": "https://images.unsplash.com/photo-1518895949257-7621c3c786d7"
     },
-    {
-        "nama": "Tulip",
-        "harga": 30000,
-        "gambar": "https://images.unsplash.com/photo-1520763185298-1b434c919102"
-    },
+
     {
         "nama": "Lily",
         "harga": 100000,
+        "stok": 15,
         "gambar": "https://images.unsplash.com/photo-1490750967868-88aa4486c946"
-    },
-    {
-        "nama": "Sunflower",
-        "harga": 35000,
-        "gambar": "https://images.unsplash.com/photo-1470509037663-253afd7f0f51"
     }
 ]
 
@@ -90,6 +90,7 @@ if menu == "Kasir":
 
             st.markdown(f"### {flower['nama']}")
             st.write(f"Harga : Rp {flower['harga']:,}")
+            st.write(f"Stok : {flower['stok']}")
 
             qty = st.number_input(
                 f"Qty {flower['nama']}",
@@ -181,13 +182,19 @@ if menu == "Kasir":
             # =====================================
             # QR CODE
             # =====================================
-            st.subheader("📱 QR Pembayaran")
+           st.subheader("📱 QRIS Pembayaran")
 
-            qr = qrcode.make(f"Pembayaran Florist Rp {total}")
+qris_text = f"""
+SHIFA FLORIST
+Total Bayar Rp {total}
+"""
 
-            qr.save("qrcode.png")
+qr = qrcode.make(qris_text)
 
-            st.image("qrcode.png", width=250)
+qr.save("qris.png")
+
+st.image("qris.png", width=250)
+
 
             # =====================================
             # CETAK STRUK
@@ -274,6 +281,7 @@ Terima Kasih
 elif menu == "Keuangan":
 
     st.title("📊 KEUANGAN")
+    st.subheader("Dashboard Keuangan")
 
     df = pd.read_csv(FILE_NAME)
 
@@ -345,6 +353,11 @@ elif menu == "Keuangan":
         st.subheader("Data Transaksi")
 
         st.dataframe(filtered, use_container_width=True)
+        st.subheader("📈 Grafik Penjualan")
+
+grafik = filtered.groupby("Produk")["Subtotal"].sum()
+
+st.bar_chart(grafik)
 
     else:
         st.warning("Belum ada transaksi")
