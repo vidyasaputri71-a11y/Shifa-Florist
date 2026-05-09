@@ -241,39 +241,36 @@ for flower in flowers:
         no_hp = st.text_input("Nomor HP Penerima")
 
         pengiriman = st.selectbox(
-            "Metode Pengiriman",
-            ["Ambil di Toko", "Kurir Toko", "GoSend", "GrabExpress"]
-        )
 # =====================================
 # REQUEST CUSTOMER
 # =====================================
 
-st.subheader("🎀 Request Customer")
+        st.subheader("🎀 Request Customer")
 
-request_bunga = st.multiselect(
-    "Bunga ingin diapakan?",
-    [
-        "Dibuat bouquet aesthetic",
-        "Tambah pita",
-        "Tambah lampu LED",
-        "Packing premium",
-        "Tambah boneka",
-        "Warna dominan pink",
-        "Warna dominan putih",
-        "Buket wisuda",
-        "Buket ulang tahun",
-        "Buket anniversary"
-    ]
-)
+        request_bunga = st.multiselect(
+            "Bunga ingin diapakan?",
+            [
+                "Dibuat bouquet aesthetic",
+                "Tambah pita",
+                "Tambah lampu LED",
+                "Packing premium",
+                "Tambah boneka",
+                "Warna dominan pink",
+                "Warna dominan putih",
+                "Buket wisuda",
+                "Buket ulang tahun",
+                "Buket anniversary"
+            ]
+        )
 
-kartu_ucapan = st.text_area(
-    "Isi Kartu Ucapan",
-    placeholder="Contoh : Happy Birthday semoga sehat selalu 🌸"
-)
+        kartu_ucapan = st.text_area(
+            "Isi Kartu Ucapan",
+            placeholder="Contoh : Happy Birthday 🌸"
+        )
 
-permintaan_tambahan = st.text_area(
-    "Permintaan Tambahan"
-)
+        permintaan_tambahan = st.text_area(
+            "Permintaan Tambahan"
+        )
         # =====================================
         # PEMBAYARAN
         # =====================================
@@ -403,9 +400,9 @@ Terima Kasih
 
     else:
         st.info("Keranjang kosong")
-# =====================================
-# REVIEW PELANGGAN
-# =====================================
+    # =====================================
+    # REVIEW PELANGGAN
+    # =====================================
 
 st.divider()
 st.header("⭐ Review Pelanggan")
