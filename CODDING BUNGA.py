@@ -231,77 +231,355 @@ if menu == "Kasir":
 """)
 
     # =====================================
-    # KATALOG BUNGA
+# KATALOG BUNGA
+# =====================================
+
+st.divider()
+
+st.header("🌸 Katalog Bunga Premium")
+
+cols = st.columns(3)
+
+for i, flower in enumerate(flowers):
+
+    with cols[i % 3]:
+
+        st.markdown(f"""
+        <div style="
+        background: linear-gradient(180deg,#fff0f6,#ffffff);
+        padding:20px;
+        border-radius:25px;
+        box-shadow:0 6px 18px rgba(255,105,180,0.15);
+        text-align:center;
+        margin-bottom:25px;
+        border:1px solid #ffd6e7;
+        ">
+
+        <img src="{flower['gambar']}"
+        style="
+        width:100%;
+        height:240px;
+        object-fit:cover;
+        border-radius:20px;
+        margin-bottom:15px;
+        ">
+
+        <h2 style="
+        color:#ff4da6;
+        margin-bottom:10px;
+        ">
+        🌷 {flower['nama']}
+        </h2>
+
+        <p style="
+        font-size:20px;
+        color:#cc0066;
+        font-weight:bold;
+        ">
+        Rp {flower['harga']:,}
+        </p>
+
+        <p style="
+        color:gray;
+        ">
+        📦 Stok tersedia : {flower['stok']}
+        </p>
+
+        </div>
+        """, unsafe_allow_html=True)
+
+        qty = st.number_input(
+            f"Qty {flower['nama']}",
+            min_value=1,
+            step=1,
+            key=f"qty{i}"
+        )
+
+        if st.button(f"🛒 Tambah {flower['nama']}", key=f"btn{i}"):
+
+            st.session_state.cart.append({
+                "Produk": flower["nama"],
+                "Qty": qty,
+                "Harga": flower["harga"],
+                "Subtotal": qty * flower["harga"]
+            })
+
+            st.success(f"{flower['nama']} berhasil ditambahkan 🌸")
+
+# =====================================
+# CUSTOM BOUQUET
+# =====================================
+
+st.divider()
+
+st.subheader("💐 Custom Bouquet")
+
+custom_nama = st.text_input("Nama Bouquet")
+
+custom_harga = st.number_input(
+    "Harga Bouquet",
+    min_value=0
+)
+
+custom_qty = st.number_input(
+    "Jumlah Bouquet",
+    min_value=1,
+    step=1
+)
+
+if st.button("Tambah Custom Bouquet"):
+
+    st.session_state.cart.append({
+        "Produk": custom_nama,
+        "Qty": custom_qty,
+        "Harga": custom_harga,
+        "Subtotal": custom_qty * custom_harga
+    })
+
+    st.success("Custom bouquet ditambahkan 🌸")
+
+# =====================================
+# KERANJANG
+# =====================================
+
+st.divider()
+
+st.subheader("🛒 Keranjang")
+
+if len(st.session_state.cart) > 0:
+
+    df_cart = pd.DataFrame(st.session_state.cart)
+
+    st.dataframe(df_cart, use_container_width=True)
+
+    total = df_cart["Subtotal"].sum()
+
+    st.markdown(f"## 💵 Total : Rp {total:,}")
+
+    # =====================================
+    # CATATAN
     # =====================================
 
-    st.divider()
+    catatan = st.text_area("Catatan Pembelian")
 
-    st.header("🌸 Katalog Bunga Premium")
+    # =====================================
+    # PENGIRIMAN
+    # =====================================
 
-    cols = st.columns(3)
+    st.subheader("🚚 Pengiriman")
 
-    for i, flower in enumerate(flowers):
+    nama_penerima = st.text_input("Nama Penerima")
 
-        with cols[i % 3]:
+    alamat = st.text_area("Alamat Pengiriman")
 
-            st.markdown(f"""
-            <div style="
-            background: linear-gradient(180deg,#fff0f6,#ffffff);
-            padding:20px;
-            border-radius:25px;
-            box-shadow:0 6px 18px rgba(255,105,180,0.15);
-            text-align:center;
-            margin-bottom:25px;
-            border:1px solid #ffd6e7;
-            ">
+    no_hp = st.text_input("Nomor HP Penerima")
 
-            <img src="{flower['gambar']}"
-            style="
-            width:100%;
-            height:240px;
-            object-fit:cover;
-            border-radius:20px;
-            margin-bottom:15px;
-            ">
+    pengiriman = st.selectbox(
+        "Metode Pengiriman",
+        ["Ambil di Toko", "Kurir Toko", "GoSend", "GrabExpress"]
+    )
 
-            <h2 style="
-            color:#ff4da6;
-            margin-bottom:10px;
-            ">
-            🌷 {flower['nama']}
-            </h2>
+    # =====================================
+    # REQUEST CUSTOMER
+    # =====================================
 
-            <p style="
-            font-size:20px;
-            color:#cc0066;
-            font-weight:bold;
-            ">
-            Rp {flower['harga']:,}
-            </p>
+    st.subheader("🎀 Request Customer")
 
-            <p style="
-            color:gray;
-            ">
-            📦 Stok tersedia : {flower['stok']}
-            </p>
+    request_bunga = st.multiselect(
+        "Bunga ingin diapakan?",
+        [
+            "Dibuat bouquet aesthetic",
+            "Tambah pita",
+            "Tambah lampu LED",
+            "Packing premium",
+            "Tambah boneka",
+            "Warna dominan pink",
+            "Warna dominan putih",
+            "Buket wisuda",
+            "Buket ulang tahun",
+            "Buket anniversary"
+        ]
+    )
 
-            </div>
-            """, unsafe_allow_html=True)
+    kartu_ucapan = st.text_area(
+        "Isi Kartu Ucapan",
+        placeholder="Contoh : Happy Birthday 🌸"
+    )
 
-            qty = st.number_input(
-                f"Qty {flower['nama']}",
-                min_value=1,
-                step=1,
-                key=f"qty{i}"
-            )
+    permintaan_tambahan = st.text_area(
+        "Permintaan Tambahan"
+    )
 
-            if st.button(f"🛒 Tambah {flower['nama']}", key=f"btn{i}"):
+    # =====================================
+    # PEMBAYARAN
+    # =====================================
 
-                st.session_state.cart.append({
-                    "Produk": flower["nama"],
-                    "Qty": qty,
-                    "Harga": flower["harga"],
-                    "Subtotal": qty * flower["harga"]
+    pembayaran = st.number_input(
+        "Uang Masuk",
+        min_value=0
+    )
+
+    if pembayaran >= total:
+
+        kembalian = pembayaran - total
+
+        st.success("Pembayaran Berhasil ✅")
+
+        st.write(f"💰 Kembalian : Rp {kembalian:,}")
+
+        # =====================================
+        # QRIS PEMBAYARAN
+        # =====================================
+
+        st.subheader("📱 QRIS Pembayaran")
+
+        qris_text = f"""
+        SHIFA FLORIST
+        Total Bayar Rp {total}
+        """
+
+        qr = qrcode.make(qris_text)
+
+        qr.save("qris.png")
+
+        st.image("qris.png", width=250)
+
+        # =====================================
+        # CETAK STRUK
+        # =====================================
+
+        st.subheader("🧾 Struk Pembelian")
+
+        struk = f'''
+=========================
+     SHIFA FLORIST
+=========================
+
+Tanggal :
+{datetime.now().strftime("%d-%m-%Y %H:%M")}
+'''
+
+        for item in st.session_state.cart:
+
+            struk += f'''
+{item['Produk']}
+{item['Qty']} x Rp {item['Harga']:,}
+= Rp {item['Subtotal']:,}
+'''
+
+        struk += f'''
+
+-------------------------
+TOTAL : Rp {total:,}
+BAYAR : Rp {pembayaran:,}
+KEMBALI : Rp {kembalian:,}
+
+Catatan :
+{catatan}
+
+Penerima :
+{nama_penerima}
+
+Alamat :
+{alamat}
+
+No HP :
+{no_hp}
+
+Pengiriman :
+{pengiriman}
+
+Request :
+{", ".join(request_bunga)}
+
+Kartu Ucapan :
+{kartu_ucapan}
+
+Tambahan :
+{permintaan_tambahan}
+
+Terima Kasih 🌸
+'''
+
+        st.text(struk)
+
+        # =====================================
+        # SIMPAN TRANSAKSI
+        # =====================================
+
+        if st.button("Simpan Transaksi"):
+
+            data_baru = []
+
+            for item in st.session_state.cart:
+
+                data_baru.append({
+                    "Tanggal": datetime.now(),
+                    "Produk": item["Produk"],
+                    "Qty": item["Qty"],
+                    "Harga": item["Harga"],
+                    "Subtotal": item["Subtotal"],
+                    "Catatan": catatan,
+                    "Pembayaran": pembayaran,
+                    "Kembalian": kembalian
                 })
 
-                st.success(f"{flower['nama']} berhasil ditambahkan 🌸")
+            df_baru = pd.DataFrame(data_baru)
+
+            df_lama = pd.read_csv(FILE_NAME)
+
+            df_gabung = pd.concat(
+                [df_lama, df_baru],
+                ignore_index=True
+            )
+
+            df_gabung.to_csv(FILE_NAME, index=False)
+
+            st.success("Transaksi berhasil disimpan 🌸")
+
+            st.session_state.cart = []
+
+    else:
+        st.error("Uang tidak cukup ❌")
+
+else:
+    st.info("Keranjang kosong")
+
+# =====================================
+# REVIEW PELANGGAN
+# =====================================
+
+st.divider()
+
+st.header("⭐ Review Pelanggan")
+
+nama_review = st.text_input("Nama Anda")
+
+rating = st.slider(
+    "Rating",
+    min_value=1,
+    max_value=5,
+    value=5
+)
+
+komentar = st.text_area("Komentar Review")
+
+if st.button("Kirim Review"):
+
+    st.session_state.reviews.append({
+        "nama": nama_review,
+        "rating": rating,
+        "komentar": komentar
+    })
+
+    st.success("Review berhasil ditambahkan 🌸")
+
+for review in st.session_state.reviews:
+
+    st.markdown("---")
+
+    st.subheader(f"👤 {review['nama']}")
+
+    st.write("⭐" * review["rating"])
+
+    st.write(review["komentar"])
