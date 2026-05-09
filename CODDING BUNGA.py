@@ -119,29 +119,31 @@ if menu == "Kasir":
     st.divider()
     st.header("📚 Katalog Bunga")
 
-   for flower in flowers:
+       for flower in flowers:
 
-    with st.container():
+        for flower in flowers:
 
-        col1, col2 = st.columns([1, 2])
+        with st.container():
 
-        with col1:
-            st.image(
-                flower["gambar"],
-                use_container_width=True
-            )
+            col1, col2 = st.columns([1, 2])
 
-        with col2:
-            st.subheader(flower["nama"])
-            st.write(f"💰 Harga : Rp {flower['harga']:,}")
-            st.write(f"📦 Stok : {flower['stok']}")
+            with col1:
+                st.image(
+                    flower["gambar"],
+                    use_container_width=True
+                )
 
-            if flower["stok"] > 10:
-                st.success("Tersedia")
-            else:
-                st.warning("Stok Terbatas")
+            with col2:
+                st.subheader(flower["nama"])
+                st.write(f"💰 Harga : Rp {flower['harga']:,}")
+                st.write(f"📦 Stok : {flower['stok']}")
 
-        st.divider()
+                if flower["stok"] > 10:
+                    st.success("Tersedia")
+                else:
+                    st.warning("Stok Terbatas")
+
+            st.divider()
 
     cols = st.columns(4)
 
@@ -428,23 +430,24 @@ Terima Kasih
     # form review
     nama_review = st.text_input("Nama Anda")
 
-rating = st.slider(
-    "Rating",
-    min_value=1,
-    max_value=5,
-    value=5
-)
+    rating = st.slider(
+        "Rating",
+        min_value=1,
+        max_value=5,
+        value=5
+    )
 
-    komentar = st.text_area("Komentar Review")
+        komentar = st.text_area("Komentar Review")
 
-    if st.button("Kirim Review"):
+       if st.button("Kirim Review"):
 
-    st.session_state.reviews.append({
-        "nama": nama_review,
-        "rating": rating,
-        "komentar": komentar
-    })
+        st.session_state.reviews.append({
+            "nama": nama_review,
+            "rating": rating,
+            "komentar": komentar
+        })
 
+        st.success("Review berhasil ditambahkan")
     st.success("Review berhasil ditambahkan")
 
     # tampilkan review
