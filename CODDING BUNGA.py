@@ -190,21 +190,39 @@ menu = st.sidebar.radio(
 if menu == "Kasir":
 
     st.markdown("""
-    <h1 style='text-align:center; color:#ff4da6;'>
-    🌸 SHIFA FLORIST 🌸
+    <div style="
+    background: linear-gradient(90deg, #ffd6e7, #fff0f6);
+    padding: 35px;
+    border-radius: 20px;
+    text-align: center;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    ">
+
+    <h1 style="
+    color:#ff4da6;
+    font-size:55px;
+    margin-bottom:10px;
+    ">
+    🌸 🌷 SHIFA FLORIST 🌷 🌸
     </h1>
-    """, unsafe_allow_html=True)
 
-    st.markdown("""
-    <p style='text-align:center; font-size:18px;'>
-    Bouquet aesthetic • Fresh flowers • Special moments 💐
+    <p style="
+    font-size:20px;
+    color:#cc0066;
+    ">
+    Fresh Flower • Bouquet Aesthetic • Special Moment 💐
     </p>
-    """, unsafe_allow_html=True)
 
-    st.image(
-        "https://images.unsplash.com/photo-1526045478516-99145907023c",
-        use_container_width=True
-    )
+    <p style="
+    font-size:16px;
+    color:gray;
+    ">
+    ✨ Make Every Moment Bloom Beautifully ✨
+    </p>
+
+    </div>
+    """, unsafe_allow_html=True)
 
     st.info("""
 📞 WhatsApp : 08123456789
@@ -212,9 +230,13 @@ if menu == "Kasir":
 🎵 TikTok : @shifaflorist
 """)
 
+    # =====================================
+    # KATALOG BUNGA
+    # =====================================
+
     st.divider()
 
-    st.header("📚 Katalog Bunga")
+    st.header("🌸 Katalog Bunga Premium")
 
     cols = st.columns(3)
 
@@ -222,23 +244,49 @@ if menu == "Kasir":
 
         with cols[i % 3]:
 
-            st.image(flower["gambar"], use_container_width=True)
-
             st.markdown(f"""
             <div style="
-            background-color:white;
-            padding:10px;
-            border-radius:15px;
-            box-shadow:0 4px 10px rgba(0,0,0,0.1);
+            background: linear-gradient(180deg,#fff0f6,#ffffff);
+            padding:20px;
+            border-radius:25px;
+            box-shadow:0 6px 18px rgba(255,105,180,0.15);
             text-align:center;
+            margin-bottom:25px;
+            border:1px solid #ffd6e7;
+            ">
+
+            <img src="{flower['gambar']}"
+            style="
+            width:100%;
+            height:240px;
+            object-fit:cover;
+            border-radius:20px;
+            margin-bottom:15px;
+            ">
+
+            <h2 style="
+            color:#ff4da6;
             margin-bottom:10px;
             ">
-            <h3 style='color:#ff4da6;'>{flower['nama']}</h3>
+            🌷 {flower['nama']}
+            </h2>
+
+            <p style="
+            font-size:20px;
+            color:#cc0066;
+            font-weight:bold;
+            ">
+            Rp {flower['harga']:,}
+            </p>
+
+            <p style="
+            color:gray;
+            ">
+            📦 Stok tersedia : {flower['stok']}
+            </p>
+
             </div>
             """, unsafe_allow_html=True)
-
-            st.write(f"💰 Harga : Rp {flower['harga']:,}")
-            st.write(f"📦 Stok : {flower['stok']}")
 
             qty = st.number_input(
                 f"Qty {flower['nama']}",
@@ -247,7 +295,7 @@ if menu == "Kasir":
                 key=f"qty{i}"
             )
 
-            if st.button(f"Tambah {flower['nama']}", key=f"btn{i}"):
+            if st.button(f"🛒 Tambah {flower['nama']}", key=f"btn{i}"):
 
                 st.session_state.cart.append({
                     "Produk": flower["nama"],
@@ -256,334 +304,4 @@ if menu == "Kasir":
                     "Subtotal": qty * flower["harga"]
                 })
 
-                st.success("Berhasil ditambahkan")
-
-    # =====================================
-    # CUSTOM BOUQUET
-    # =====================================
-
-    st.divider()
-
-    st.subheader("💐 Custom Bouquet")
-
-    custom_nama = st.text_input("Nama Bouquet")
-
-    custom_harga = st.number_input(
-        "Harga Bouquet",
-        min_value=0
-    )
-
-    custom_qty = st.number_input(
-        "Jumlah Bouquet",
-        min_value=1,
-        step=1
-    )
-
-    if st.button("Tambah Custom Bouquet"):
-
-        st.session_state.cart.append({
-            "Produk": custom_nama,
-            "Qty": custom_qty,
-            "Harga": custom_harga,
-            "Subtotal": custom_qty * custom_harga
-        })
-
-        st.success("Custom bouquet ditambahkan")
-
-    # =====================================
-    # KERANJANG
-    # =====================================
-
-    st.divider()
-
-    st.subheader("🛒 Keranjang")
-
-    if len(st.session_state.cart) > 0:
-
-        df_cart = pd.DataFrame(st.session_state.cart)
-
-        st.dataframe(df_cart, use_container_width=True)
-
-        total = df_cart["Subtotal"].sum()
-
-        st.markdown(f"## 💵 Total : Rp {total:,}")
-
-        catatan = st.text_area("Catatan Pembelian")
-
-        st.subheader("🚚 Pengiriman")
-
-        nama_penerima = st.text_input("Nama Penerima")
-
-        alamat = st.text_area("Alamat Pengiriman")
-
-        no_hp = st.text_input("Nomor HP Penerima")
-
-        pengiriman = st.selectbox(
-            "Metode Pengiriman",
-            ["Ambil di Toko", "Kurir Toko", "GoSend", "GrabExpress"]
-        )
-
-        st.subheader("🎀 Request Customer")
-
-        request_bunga = st.multiselect(
-            "Bunga ingin diapakan?",
-            [
-                "Dibuat bouquet aesthetic",
-                "Tambah pita",
-                "Tambah lampu LED",
-                "Packing premium",
-                "Tambah boneka",
-                "Warna dominan pink",
-                "Warna dominan putih",
-                "Buket wisuda",
-                "Buket ulang tahun",
-                "Buket anniversary"
-            ]
-        )
-
-        kartu_ucapan = st.text_area(
-            "Isi Kartu Ucapan"
-        )
-
-        permintaan_tambahan = st.text_area(
-            "Permintaan Tambahan"
-        )
-
-        pembayaran = st.number_input(
-            "Uang Masuk",
-            min_value=0
-        )
-
-        if pembayaran >= total:
-
-            kembalian = pembayaran - total
-
-            st.success("Pembayaran Berhasil")
-
-            st.write(f"💰 Kembalian : Rp {kembalian:,}")
-
-            st.subheader("📱 QRIS Pembayaran")
-
-            qris_text = f"""
-            SHIFA FLORIST
-            Total Bayar Rp {total}
-            """
-
-            qr = qrcode.make(qris_text)
-
-            qr.save("qris.png")
-
-            st.image("qris.png", width=250)
-
-            st.subheader("🧾 Struk Pembelian")
-
-            struk = f"""
-=========================
-     SHIFA FLORIST
-=========================
-
-Tanggal :
-{datetime.now().strftime("%d-%m-%Y %H:%M")}
-
-"""
-
-            for item in st.session_state.cart:
-
-                struk += f"""
-{item['Produk']}
-{item['Qty']} x Rp {item['Harga']:,}
-= Rp {item['Subtotal']:,}
-"""
-
-            struk += f"""
-
--------------------------
-TOTAL : Rp {total:,}
-BAYAR : Rp {pembayaran:,}
-KEMBALI : Rp {kembalian:,}
-
-Terima Kasih 🌸
-"""
-
-            st.text(struk)
-
-            if st.button("Simpan Transaksi"):
-
-                data_baru = []
-
-                for item in st.session_state.cart:
-
-                    data_baru.append({
-                        "Tanggal": datetime.now(),
-                        "Produk": item["Produk"],
-                        "Qty": item["Qty"],
-                        "Harga": item["Harga"],
-                        "Subtotal": item["Subtotal"],
-                        "Catatan": catatan,
-                        "Pembayaran": pembayaran,
-                        "Kembalian": kembalian
-                    })
-
-                df_baru = pd.DataFrame(data_baru)
-
-                df_lama = pd.read_csv(FILE_NAME)
-
-                df_gabung = pd.concat(
-                    [df_lama, df_baru],
-                    ignore_index=True
-                )
-
-                df_gabung.to_csv(FILE_NAME, index=False)
-
-                st.success("Transaksi berhasil disimpan")
-
-                st.session_state.cart = []
-
-        else:
-            st.error("Uang tidak cukup")
-
-    else:
-        st.info("Keranjang kosong")
-
-    # =====================================
-    # REVIEW
-    # =====================================
-
-    st.divider()
-
-    st.header("⭐ Review Pelanggan")
-
-    nama_review = st.text_input("Nama Anda")
-
-    rating = st.slider(
-        "Rating",
-        min_value=1,
-        max_value=5,
-        value=5
-    )
-
-    komentar = st.text_area("Komentar Review")
-
-    if st.button("Kirim Review"):
-
-        st.session_state.reviews.append({
-            "nama": nama_review,
-            "rating": rating,
-            "komentar": komentar
-        })
-
-        st.success("Review berhasil ditambahkan")
-
-    for review in st.session_state.reviews:
-
-        st.markdown("---")
-
-        st.subheader(f"👤 {review['nama']}")
-
-        st.write("⭐" * review["rating"])
-
-        st.write(review["komentar"])
-
-# =====================================
-# HALAMAN KEUANGAN
-# =====================================
-
-elif menu == "Keuangan":
-
-    if not admin_login:
-
-        st.warning("Menu keuangan khusus admin")
-        st.stop()
-
-    st.title("📊 Dashboard Keuangan")
-
-    df = pd.read_csv(FILE_NAME)
-
-    if len(df) > 0:
-
-        df["Tanggal"] = pd.to_datetime(df["Tanggal"])
-
-        pilihan = st.selectbox(
-            "Pilih Periode",
-            [
-                "Hari Ini",
-                "7 Hari",
-                "30 Hari",
-                "Custom"
-            ]
-        )
-
-        today = datetime.now()
-
-        if pilihan == "Hari Ini":
-
-            filtered = df[
-                df["Tanggal"].dt.date == today.date()
-            ]
-
-        elif pilihan == "7 Hari":
-
-            filtered = df[
-                df["Tanggal"] >= today - timedelta(days=7)
-            ]
-
-        elif pilihan == "30 Hari":
-
-            filtered = df[
-                df["Tanggal"] >= today - timedelta(days=30)
-            ]
-
-        else:
-
-            start = st.date_input("Dari")
-
-            end = st.date_input("Sampai")
-
-            filtered = df[
-                (df["Tanggal"].dt.date >= start) &
-                (df["Tanggal"].dt.date <= end)
-            ]
-
-        pemasukan = filtered["Subtotal"].sum()
-
-        pengeluaran = 0
-
-        laba_bersih = pemasukan - pengeluaran
-
-        transaksi = len(filtered)
-
-        col1, col2, col3, col4 = st.columns(4)
-
-        col1.metric("Pemasukan", f"Rp {pemasukan:,}")
-        col2.metric("Pengeluaran", f"Rp {pengeluaran:,}")
-        col3.metric("Laba Bersih", f"Rp {laba_bersih:,}")
-        col4.metric("Jumlah Transaksi", transaksi)
-
-        st.divider()
-
-        st.subheader("📋 Data Transaksi")
-
-        st.dataframe(filtered, use_container_width=True)
-
-        st.subheader("📈 Grafik Penjualan")
-
-        grafik = filtered.groupby("Produk")["Subtotal"].sum()
-
-        st.bar_chart(grafik)
-
-    else:
-        st.warning("Belum ada transaksi")
-
-# =====================================
-# FOOTER
-# =====================================
-
-st.markdown("""
-<hr>
-<center>
-<p style='color:gray;'>
-🌸 SHIFA FLORIST © 2026 <br>
-Made with Streamlit 💖
-</p>
-</center>
-""", unsafe_allow_html=True)
+                st.success(f"{flower['nama']} berhasil ditambahkan 🌸")
