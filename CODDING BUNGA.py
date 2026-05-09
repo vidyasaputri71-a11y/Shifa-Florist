@@ -350,7 +350,7 @@ elif menu == "Keuangan":
 
         st.subheader("Data Transaksi")
 
-                st.dataframe(filtered, use_container_width=True)
+        st.dataframe(filtered, use_container_width=True)
 
         st.subheader("📈 Grafik Penjualan")
 
