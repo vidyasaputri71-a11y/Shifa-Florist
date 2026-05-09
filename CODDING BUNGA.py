@@ -9,7 +9,7 @@ from PIL import Image
 # CONFIG
 # =====================================
 st.set_page_config(
-    page_title="Florist Cashier",
+    page_title="SHIFA FLORIST",
     layout="wide"
 )
 
@@ -43,7 +43,7 @@ if "cart" not in st.session_state:
 flowers = [
     {
         "nama": "Mawar",
-        "harga": 25000,
+        "harga": 10000,
         "gambar": "https://images.unsplash.com/photo-1518895949257-7621c3c786d7"
     },
     {
@@ -53,12 +53,12 @@ flowers = [
     },
     {
         "nama": "Lily",
-        "harga": 35000,
+        "harga": 100000,
         "gambar": "https://images.unsplash.com/photo-1490750967868-88aa4486c946"
     },
     {
         "nama": "Sunflower",
-        "harga": 28000,
+        "harga": 35000,
         "gambar": "https://images.unsplash.com/photo-1470509037663-253afd7f0f51"
     }
 ]
