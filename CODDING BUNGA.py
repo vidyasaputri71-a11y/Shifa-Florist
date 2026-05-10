@@ -182,12 +182,59 @@ menu = st.sidebar.radio(
     "Menu",
     ["Kasir", "Keuangan"]
 )
+# =====================================
+# HALAMAN KEUANGAN
+# =====================================
 
+if menu == "Keuangan":
+
+    if admin_login:
+
+        st.title("📊 Keuangan SHIFA FLORIST")
+
+        df = pd.read_csv(FILE_NAME)
+
+        if len(df) > 0:
+
+            total_penjualan = df["Subtotal"].sum()
+
+            total_transaksi = len(df)
+
+            st.metric(
+                "💰 Total Penjualan",
+                f"Rp {total_penjualan:,}"
+            )
+
+            st.metric(
+                "🧾 Jumlah Transaksi",
+                total_transaksi
+            )
+
+            st.subheader("📋 Data Transaksi")
+
+            st.dataframe(df, use_container_width=True)
+
+            csv = df.to_csv(index=False).encode("utf-8")
+
+            st.download_button(
+                "⬇ Download Laporan CSV",
+                csv,
+                "laporan_keuangan.csv",
+                "text/csv"
+            )
+
+        else:
+
+            st.warning("Belum ada transaksi")
+
+    else:
+
+        st.error("❌ Login admin terlebih dahulu")
 # =====================================
 # HALAMAN KASIR
 # =====================================
 
-if menu == "Kasir":
+elif menu == "Kasir":
 
     st.markdown("""
     <div style="
